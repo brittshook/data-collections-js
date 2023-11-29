@@ -1,7 +1,7 @@
 // Part 1: Refactoring Old Code
 
 // BEFORE: 
-// const str = 'Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232';
+// const str = 'ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,QuizMaster,58\n98,Bill,Doctor’s Assistant,26';
 
 // let rows = str.split('\n'); 
 
@@ -11,7 +11,7 @@
 // };
 
 // AFTER: 
-const str = 'Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232';
+const str = 'ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,QuizMaster,58\n98,Bill,Doctor’s Assistant,26';
 
 const rows = str.split('\n'); 
 rows.forEach(row => console.log(row.split(',')));
@@ -48,16 +48,16 @@ const tableObjArr = [];
 const numOfRows = tableArr.length;
 const numOfCols = tableArr[0].length;
 
-let rowCount = 0;
+let rowCount = 1;
 
 while (rowCount < numOfRows) {
-    tableObjArr[rowCount] = {}; // create objs for each row
+    tableObjArr[rowCount - 1] = {}; // create objs for each row
 
     let colCount = 0;
 
     while (colCount < numOfCols) {
         const header = tableArr[0][colCount]; // get col heading from first row of table arr
-        tableObjArr[rowCount][header.toLowerCase()] = tableArr[rowCount][colCount]; // add key value pair into the appropriate sub objs
+        tableObjArr[rowCount - 1][header.toLowerCase()] = tableArr[rowCount][colCount]; // add key value pair into the appropriate sub objs
 
         colCount++;
     }
@@ -66,3 +66,27 @@ while (rowCount < numOfRows) {
 
 console.log(tableObjArr);
 
+// Part 4: Sorting and Manipulating Data
+
+// Remove the last element from the sorted array.
+// 2. Insert the following object at index 1:
+// { id: "48", name: "Barry", occupation: "Runner", age: "25" }
+// 3. Add the following object to the end of the array:
+// { id: "7", name: "Bilbo", occupation: "None", age: "111" }
+
+tableObjArr.pop();
+console.log(tableObjArr);
+tableObjArr.splice(1, 0, { id: "48", name: "Barry", occupation: "Runner", age: "25" });
+console.log(tableObjArr);
+tableObjArr.push({ id: "7", name: "Bilbo", occupation: "None", age: "111" });
+console.log(tableObjArr);
+
+// Finally, use the values of each object within the array and the array’s length property to calculate the
+// average age of the group. This calculation should be accomplished using a loop.
+let avgAge = 0;
+
+for (const entry of tableObjArr) {
+    avgAge += entry.age / tableObjArr.length;
+}
+
+console.log(avgAge.toFixed(1));
