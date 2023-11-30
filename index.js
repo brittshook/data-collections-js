@@ -48,20 +48,13 @@ const tableObjArr = [];
 const numOfRows = tableArr.length;
 const numOfCols = tableArr[0].length;
 
-let rowCount = 1;
+for (let row = 1; row < numOfRows; row++) {
+    tableObjArr[row - 1] = {}; // create objs for each row
 
-while (rowCount < numOfRows) {
-    tableObjArr[rowCount - 1] = {}; // create objs for each row
-
-    let colCount = 0;
-
-    while (colCount < numOfCols) {
-        const header = tableArr[0][colCount]; // get col heading from first row of table arr
-        tableObjArr[rowCount - 1][header.toLowerCase()] = tableArr[rowCount][colCount]; // add key value pair into the appropriate sub objs
-
-        colCount++;
+    for (let col = 1; col < numOfCols; col++) {
+        const header = tableArr[0][col]; // get col heading from first row of table arr
+        tableObjArr[row - 1][header.toLowerCase()] = tableArr[row][col]; // add key value pair into the appropriate sub objs
     }
-    rowCount++;
 }
 
 console.log(tableObjArr);
