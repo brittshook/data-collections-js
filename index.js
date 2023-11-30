@@ -90,3 +90,18 @@ for (const entry of tableObjArr) {
 }
 
 console.log(avgAge.toFixed(1));
+
+
+// Part 5: Full Circle
+
+// As a final task, transform the final set of data back into CSV format.
+let csv = '';
+
+for (const entry of tableObjArr) {
+    for (const key in entry) {
+        csv += entry[key] + ',';
+    }
+    csv = csv.replace(/,$/, '\n');
+}
+
+console.log(csv);
